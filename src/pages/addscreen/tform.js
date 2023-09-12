@@ -64,7 +64,7 @@ export default function Tform() {
 
           {test.map((data, i) => {
             return (
-              <div>
+              <div key={i}>
                 <form>
                   <div className="flex bg-[#1F1F1F] w-full px-5 h-auto py-[10px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0 ">
                     Test Case {i + 1}
