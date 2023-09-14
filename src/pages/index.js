@@ -71,7 +71,7 @@ function Login() {
         transition={{ ease: easeInOut, duration: 0.5 }}
         className="flex items-center justify-center mt-10 z-40"
       >
-        <Image src={logo} />
+        <Image src={logo} alt="Logo" />
       </motion.div>
 
       <motion.div
