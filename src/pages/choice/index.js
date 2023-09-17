@@ -13,6 +13,7 @@ export default function Choice() {
         <button
           className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
           type="submit"
+          onClick={() => handleSubmit('userdash')}
         >
           Users
         </button>
@@ -22,7 +23,7 @@ export default function Choice() {
         <button
           className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
           type="submit"
-          onClick={() => handleSubmit('addscreen')}
+          onClick={() => handleSubmit('questiondash')}
         >
           Questions
         </button>

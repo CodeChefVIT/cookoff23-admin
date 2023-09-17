@@ -48,8 +48,11 @@ function Login() {
             useTokenStore.setState({
               access_token: response.data.accessToken,
             });
+            
             localStorage.setItem("access_token", response.data.accessToken);
             localStorage.setItem("refresh_token", response.data.refreshToken);
+            console.log("login successful ");
+            console.log(response.data.accessToken);
           })
           .then(() => {
             console.log("login successful");
@@ -60,7 +63,7 @@ function Login() {
           console.log("Login failed: " + error);
         };
       }
-    },
+    }
   });
 
   return (
