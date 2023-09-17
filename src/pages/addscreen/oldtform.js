@@ -26,20 +26,10 @@ export default function Tform() {
       try {
         const access_token = localStorage.getItem("access_token");
         const qid = localStorage.getItem("question_id");
-        console.log("Test = ", test);
-        for (let i = 0; i < test.length; i++) {
-          values.expectedOutput = test[i].expectedOutput;
-          values.input = test[i].input;
-          values.number = test[i].number;
-          values.hidden = test[i].hidden;
-          values.time = test[i].time;
-          values.memory = test[i].memory;
-          values.explanation = test[i].explanation;
-          values.question = qid;
-
-          console.log("Values: ", values);
-
-          axios
+        values.question = qid;
+        console.log("Test:", test);
+        console.log("Values:", values);
+        axios
           .post(
             "https://api-cookoff-prod.codechefvit.com/testcases/create",
             values,
@@ -50,11 +40,9 @@ export default function Tform() {
             }
           )
           .then((response) => {
-            console.log("Testcase " ,i ," Posted");
+            console.log("Testcase Posted");
             // router.push("/choice");
           });
-        }
-
       } catch {
         (error) => {
           console.log("Question Post failed: " + error.response.data);
@@ -63,49 +51,24 @@ export default function Tform() {
     },
   });
 
-  const [test, setTest] = useState([
-    {
-      expectedOutput: "",
-      input: "",
-      number: 0,
-      hidden: true,
-      time: 0,
-      memory: 0,
-      explanation: "",
-      question: "",
-    },
-  ]);
-
+  const [test, setTest] = useState([""]);
   const handleClick = () => {
-    setTest([
-      ...test,
-      {
-        expectedOutput: "",
-        input: "",
-        number: 0,
-        hidden: true,
-        time: 0,
-        memory: 0,
-        explanation: "",
-        question: "",
-      },
-    ]);
+    const temp = [...test, []];
+    setTest(temp);
   };
 
-  const handleChange = (e, i) => {
+  const entryDict = {eo: "", in: "", num: 0, hid:true, tim:0, mem:0, exp:""}
+  
+  const handleChange = (onChangeValue, i) => {
     formik.handleChange;
-    const { name, value } = e.target;
-    const list = [...test];
-    list[i][name] = value;
-    setTest(list);
-    console.log(test);
+    entryDict[i] = onChangeValue.target.value;
+    setTest(entryDict);
   };
 
   const handleDelete = (i) => {
     const deleteVal = [...test];
     deleteVal.splice(i, 1);
     setTest(deleteVal);
-    console.log(test);
   };
 
   return (
@@ -124,6 +87,7 @@ export default function Tform() {
       <div className="p-[25px] overflow-y-auto overflow-x-hidden h-[70vh] bg-[#161616]">
         <div className="">
           <div>
+
             <form onSubmit={formik.handleSubmit}>
               {test.map((data, i) => {
                 return (
@@ -144,8 +108,9 @@ export default function Tform() {
                         </div>
                         <input
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          name="expectedOutput"
-                          onChange={(e) => handleChange(e, i)}
+                          id="expectedOutput"
+                          onChange={formik.handleChange}
+                          value={formik.values.expectedOutput}
                         />
                       </div>
 
@@ -154,8 +119,9 @@ export default function Tform() {
                         <div className="text-[#FFFFFF] text-[22px]">Input</div>
                         <textarea
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          onChange={(e) => handleChange(e, i)}
-                          name="input"
+                          id="input"
+                          onChange={formik.handleChange}
+                          value={formik.values.input}
                           rows={2}
                         />
                         {formik.errors.input ? (
@@ -176,9 +142,10 @@ export default function Tform() {
                             <div className="mb-[40px]">
                               <input
                                 className="w-full py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
+                                id="number"
                                 type="number"
-                                name="number"
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={formik.handleChange}
+                                value={formik.values.number}
                               />
                               {formik.errors.number ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -195,9 +162,10 @@ export default function Tform() {
                             <div className="mb-[40px] w-[14vw]">
                               <select
                                 className="w-full py-[15px] px-[20px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
+                                id="hidden"
                                 type="text"
-                                name="hidden"
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={formik.handleChange}
+                                value={formik.values.text}
                               >
                                 <option value={true}>True</option>
                                 <option value={false}>False</option>
@@ -223,9 +191,10 @@ export default function Tform() {
                             <div className="mb-[40px]">
                               <input
                                 className="w-[47%px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                                name="time"
+                                id="time"
                                 type="number"
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={formik.handleChange}
+                                value={formik.values.time}
                               />
                               {formik.errors.time ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -243,9 +212,10 @@ export default function Tform() {
                             <div className="mb-[40px]">
                               <input
                                 className="w-[99%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                                name="memory"
+                                id="memory"
                                 type="number"
-                                onChange={(e) => handleChange(e, i)}
+                                onChange={formik.handleChange}
+                                value={formik.values.memory}
                               />
                               {formik.errors.memory ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -264,8 +234,9 @@ export default function Tform() {
                         </div>
                         <textarea
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          name="explanation"
-                          onChange={(e) => handleChange(e, i)}
+                          id="explanation"
+                          onChange={formik.handleChange}
+                          value={formik.values.explanation}
                           rows={4}
                         />
                         {formik.errors.explanation ? (
@@ -294,6 +265,7 @@ export default function Tform() {
                 </div>
               </div>
             </form>
+
           </div>
         </div>
       </div>

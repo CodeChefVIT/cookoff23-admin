@@ -102,12 +102,15 @@ export default function Qform() {
       <div className="flex bg-[#1F1F1F] w-[47vw] h-auto py-[10px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0">
         Add Question
       </div>
+      
       <div className="flex items-center justify-center content-center">
         <div className="p-[50px] overflow-y-auto overflow-x-hidden h-[70vh] bg-[#161616]">
           <form onSubmit={formik.handleSubmit}>
+
             {/* Row 1 */}
             <div className="w-[100%]">
               <div className="flex flex-row ">
+
                 {/* Round Input */}
                 <div>
                   <div className="text-[#FFFFFF] text-[22px]">Round</div>
@@ -147,6 +150,7 @@ export default function Qform() {
                     ) : null}
                   </div>
                 </div>
+
               </div>
             </div>
 
