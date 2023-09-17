@@ -4,7 +4,9 @@ import React from "react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { AiFillPlusSquare } from "react-icons/ai";
-import {AiFillDelete} from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
+import axios from "axios";
+import RefreshToken from "@/utils/RefreshToken";
 
 export default function Qform() {
   const formik = useFormik({
@@ -17,55 +19,83 @@ export default function Qform() {
       constraints: [""],
       round: 0,
     },
-    onSubmit: (values) => {
-      console.log(values);
+
+    onSubmit: async (values) => {
+      await RefreshToken();
       try {
+        const access_token = localStorage.getItem("access_token");
+        values.inputFormat = inpFor;
+        values.outputFormat = outFor;
+        console.log(values);
+
         axios
           .post(
             "https://api-cookoff-prod.codechefvit.com/ques/createQues",
-            values
+            values,
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
           )
           .then((response) => {
             console.log("Question Posted");
-            console.log(response);
-            router.push("/choice");
+            console.log(response.data._id);
+            localStorage.setItem("question_id", response.data._id);
+            // router.push("/choice");
           });
       } catch {
         (error) => {
-          console.log("Question Post failed: " + error);
+          console.log("Question Post failed: " + error.response.data);
         };
       }
     },
   });
 
-  const [inpFor, setinpFor] = useState([]);
-  inpFor[0] = "dummy";
+  //Input Format
+  const [inpFor, setInpFor] = useState([""]);
   const handleInpClick = () => {
     const temp = [...inpFor, []];
-    setinpFor(temp);
+    setInpFor(temp);
   };
+
   const handleInpOnChange = (onChangeValue, i) => {
+    formik.handleChange;
+    const inputFormat = [...inpFor];
     inputFormat[i] = onChangeValue.target.value;
+    setInpFor(inputFormat);
   };
 
   const handleInpDelete = (i) => {
-    const deletVal=[...inpFor]
-    deletVal.splice(i)
-    setinpFor(deletVal)
-  }
+    const deleteVal = [...inpFor];
+    deleteVal.splice(i, 1);
+    setInpFor(deleteVal);
+  };
 
-  const [outFor, setoutFor] = useState([]);
-  outFor[0] = "dummy";
+  //Output Format
+  const [outFor, setOutFor] = useState([""]);
   const handleOutClick = () => {
     const temp = [...outFor, []];
-    setoutFor(temp);
+    setOutFor(temp);
+  };
+
+  const handleOutOnChange = (onChangeValue, i) => {
+    formik.handleChange;
+    const outputFormat = [...outFor];
+    outputFormat[i] = onChangeValue.target.value;
+    setOutFor(outputFormat);
   };
 
   const handleOutDelete = (i) => {
-    const deletVal=[...outFor]
-    deletVal.splice(i)
-    setoutFor(deletVal)
-  }
+    const deleteVal = [...outFor];
+    deleteVal.splice(i, 1);
+    setOutFor(deleteVal);
+  };
+
+  const setFormikArrays = () => {
+    console.log("Input: ", inpFor);
+    console.log("Output: ", outFor);
+  };
 
   return (
     <>
@@ -178,24 +208,29 @@ export default function Qform() {
             <div>
               <div className="text-[#FFFFFF] text-[22px] flex gap-2 mb-4">
                 <div>Input Format</div>
-                <button className="text-[30px]" onClick={() => handleInpClick()}>
-                  <AiFillPlusSquare />
+                <button
+                  type="button"
+                  className="text-[30px]"
+                  onClick={() => handleInpClick()}
+                >
+                  <AiFillPlusSquare/>
                 </button>
               </div>
 
               {inpFor.map((data, i) => {
                 return (
-                  <div className="mx-[10px] flex flex-row content-center" key={i}>
+                  <div
+                    className="mx-[10px] flex flex-row content-center"
+                    key={i}
+                  >
                     <div className="text-[#FFFFFF] text-[22px] mt-[20px]">
                       Input {i + 1}{" "}
                     </div>
                     <div className="mb-[40px]">
                       <input
                         className="w-[280px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                        id="inputFormat"
                         type="text"
-                        onChange={handleInpOnChange}
-                        value={formik.values.inputFormat}
+                        onChange={(e) => handleInpOnChange(e, i)}
                       />
                       {formik.errors.inputFormat ? (
                         <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -203,8 +238,11 @@ export default function Qform() {
                         </div>
                       ) : null}
                     </div>
-                    <button onClick={()=> handleInpDelete(i)}><div className="text-white flex content-center items-center mb-[40px]"><AiFillDelete className="text-[30px]"/></div></button>
-                    
+                    <button onClick={() => handleInpDelete(i)} type="button">
+                      <div className="text-white flex content-center items-center mb-[40px]">
+                        <AiFillDelete className="text-[30px]" />
+                      </div>
+                    </button>
                   </div>
                 );
               })}
@@ -214,24 +252,29 @@ export default function Qform() {
             <div>
               <div className="text-[#FFFFFF] text-[22px] flex gap-2 mb-4">
                 <div>Output Format</div>
-                <button className="text-[30px]" onClick={() => handleOutClick()}>
+                <button
+                  type="button"
+                  className="text-[30px]"
+                  onClick={() => handleOutClick()}
+                >
                   <AiFillPlusSquare />
                 </button>
               </div>
 
               {outFor.map((data, i) => {
                 return (
-                  <div className="mx-[10px] flex flex-row content-center" key={i}>
+                  <div
+                    className="mx-[10px] flex flex-row content-center"
+                    key={i}
+                  >
                     <div className="text-[#FFFFFF] text-[22px] mt-[20px]">
                       Output {i + 1}{" "}
                     </div>
                     <div className="mb-[40px]">
                       <input
                         className="w-[280px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                        id="outputFormat"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.outputFormat}
+                        onChange={(e) => handleOutOnChange(e, i)}
                       />
                       {formik.errors.outputFormat ? (
                         <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -239,20 +282,22 @@ export default function Qform() {
                         </div>
                       ) : null}
                     </div>
-                    <button onClick={() => handleOutDelete(i)}><div className="text-white flex content-center items-center mb-[40px]"><AiFillDelete className="text-[30px]"/></div></button>
-                    
+                    <button onClick={() => handleOutDelete(i)} type="button">
+                      <div className="text-white flex content-center items-center mb-[40px]">
+                        <AiFillDelete className="text-[30px]" />
+                      </div>
+                    </button>
                   </div>
                 );
               })}
             </div>
-
-            
 
             {/* Save Changes */}
             <div className="flex items-center justify-center">
               <button
                 className=" text-[#D9D9D9] font-semibold py-[8px] px-[26px] text-[22px] border-[2px] border-[#EB5939] bg-[#EB5939] rounded-[6px] hover:bg-[#D9D9D9] hover:text-black mt-3"
                 type="submit"
+                onClick={() => setFormikArrays()}
               >
                 Save Changes
               </button>

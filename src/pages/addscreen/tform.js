@@ -1,9 +1,12 @@
 // Right Side of DIV through which we will add Testcases.
 
 import React from "react";
-import { useState } from "react";
 import { useFormik } from "formik";
-import { AiFillDelete, AiFillPlusSquare } from "react-icons/ai";
+import { useState } from "react";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
+import axios from "axios";
+import RefreshToken from "@/utils/RefreshToken";
 
 export default function Tform() {
   const formik = useFormik({
@@ -18,32 +21,54 @@ export default function Tform() {
       question: "",
     },
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      await RefreshToken();
       try {
+        const access_token = localStorage.getItem("access_token");
+        const qid = localStorage.getItem("question_id");
+        values.question = qid;
+        console.log("Test:", test);
+        console.log("Values:", values);
         axios
           .post(
-            "https://api-cookoff-prod.codechefvit.com/testcases/create/",
-            values
+            "https://api-cookoff-prod.codechefvit.com/testcases/create",
+            values,
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
           )
           .then((response) => {
             console.log("Testcase Posted");
-            console.log(response);
-            // router.push("/choice  ");
+            // router.push("/choice");
           });
       } catch {
         (error) => {
-          console.log("Testcase Post failed: " + error);
+          console.log("Question Post failed: " + error.response.data);
         };
       }
     },
   });
 
-  const [test, setTest] = useState([]);
-  test[0] = "dummy";
+  const [test, setTest] = useState([""]);
   const handleClick = () => {
     const temp = [...test, []];
     setTest(temp);
+  };
+
+  const entryDict = {eo: "", in: "", num: 0, hid:true, tim:0, mem:0, exp:""}
+  
+  const handleChange = (onChangeValue, i) => {
+    formik.handleChange;
+    entryDict[i] = onChangeValue.target.value;
+    setTest(entryDict);
+  };
+
+  const handleDelete = (i) => {
+    const deleteVal = [...test];
+    deleteVal.splice(i, 1);
+    setTest(deleteVal);
   };
 
   return (
@@ -51,20 +76,25 @@ export default function Tform() {
       <div className="flex bg-[#1F1F1F] w-[47vw] h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[30px] mb-0 ">
         <div className="">Add Testcase</div>
         {/* Add Button */}
-        <button className="text-[30px] pr-[25px]" onClick={() => handleClick()}>
+        <button
+          className="text-[30px] pr-[25px]"
+          onClick={() => handleClick()}
+          type="button"
+        >
           <AiFillPlusSquare />
         </button>
       </div>
       <div className="p-[25px] overflow-y-auto overflow-x-hidden h-[70vh] bg-[#161616]">
         <div className="">
           <div>
-            <form>
+
+            <form onSubmit={formik.handleSubmit}>
               {test.map((data, i) => {
                 return (
-                  <div key = {i}>
+                  <div key={i}>
                     <div className="flex bg-[#1F1F1F] w-full px-5 h-auto py-[10px] items-center content-center text-[22px] text-white mt-[30px] mb-0 justify-between">
                       <div className=" ">Test Case {i + 1}</div>
-                      <button onClick={console.log("Clicked")}>
+                      <button onClick={() => handleDelete(i)} type="button">
                         <div className="text-white text-[25px]">
                           <AiFillDelete />
                         </div>
@@ -78,9 +108,9 @@ export default function Tform() {
                         </div>
                         <input
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          id="name"
+                          id="expectedOutput"
                           onChange={formik.handleChange}
-                          value={formik.values.expectedOutput[{ i }]}
+                          value={formik.values.expectedOutput}
                         />
                       </div>
 
@@ -89,9 +119,9 @@ export default function Tform() {
                         <div className="text-[#FFFFFF] text-[22px]">Input</div>
                         <textarea
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          id="name"
+                          id="input"
                           onChange={formik.handleChange}
-                          value={formik.values.input[{ i }]}
+                          value={formik.values.input}
                           rows={2}
                         />
                         {formik.errors.input ? (
@@ -115,7 +145,7 @@ export default function Tform() {
                                 id="number"
                                 type="number"
                                 onChange={formik.handleChange}
-                                value={formik.values.number[{ i }]}
+                                value={formik.values.number}
                               />
                               {formik.errors.number ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -135,7 +165,7 @@ export default function Tform() {
                                 id="hidden"
                                 type="text"
                                 onChange={formik.handleChange}
-                                value={formik.values.hidden[{ i }]}
+                                value={formik.values.text}
                               >
                                 <option value={true}>True</option>
                                 <option value={false}>False</option>
@@ -164,7 +194,7 @@ export default function Tform() {
                                 id="time"
                                 type="number"
                                 onChange={formik.handleChange}
-                                value={formik.values.time[{ i }]}
+                                value={formik.values.time}
                               />
                               {formik.errors.time ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -185,7 +215,7 @@ export default function Tform() {
                                 id="memory"
                                 type="number"
                                 onChange={formik.handleChange}
-                                value={formik.values.memory[{ i }]}
+                                value={formik.values.memory}
                               />
                               {formik.errors.memory ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -204,9 +234,9 @@ export default function Tform() {
                         </div>
                         <textarea
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                          id="name"
+                          id="explanation"
                           onChange={formik.handleChange}
-                          value={formik.values.explanation[{ i }]}
+                          value={formik.values.explanation}
                           rows={4}
                         />
                         {formik.errors.explanation ? (
@@ -222,14 +252,20 @@ export default function Tform() {
 
               {/* Save Changes */}
               <div className="flex items-center justify-center">
-                <button
-                  className=" text-[#D9D9D9] font-semibold py-[8px] px-[26px] text-[22px] border-[2px] border-[#EB5939] bg-[#EB5939] rounded-[6px] hover:bg-[#D9D9D9] hover:text-black mt-8"
-                  type="submit"
-                >
-                  Save Changes
-                </button>
+                <div className="flex items-center justify-center">
+                  <button
+                    className=" text-[#D9D9D9] font-semibold py-[8px] px-[26px] text-[22px] border-[2px] border-[#EB5939] bg-[#EB5939] rounded-[6px] hover:bg-[#D9D9D9] hover:text-black mt-3"
+                    type="submit"
+                    onClick={() => {
+                      console.log("Clicked!");
+                    }}
+                  >
+                    Save Changes
+                  </button>
+                </div>
               </div>
             </form>
+
           </div>
         </div>
       </div>
