@@ -1,0 +1,101 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import logo from "@/assets/logo.svg"
+import Image from "next/image";
+import RefreshToken from '@/utils/RefreshToken';
+import Router from 'next/router';
+const Ques = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      await RefreshToken();
+      try {
+        const round = '1';
+        const access_token = localStorage.getItem('access_token');
+
+        const response = await axios.get('https://api-cookoff-prod.codechefvit.com/ques/getOne', {
+          params: {
+            round: round,
+          },
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const handleSubmit = (value) => {
+    Router.push(`/${value}`);
+  };
+
+  return (
+    <>
+    
+      <div className='overflow-x-auto'>
+        <div className='max-h-screen overflow-y-auto'>
+          <div className="flex justify-center items-center">
+          <button
+              className="uppercase bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              type="button"
+              onClick={() => handleSubmit('addscreen')}
+            >
+              Questions
+            </button>
+            <Image src={logo} className="h-[100px] pb-5" />
+            <button
+              className="uppercase bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              type="button"
+              onClick={() => handleSubmit('userdash')}
+            >
+             Users
+            </button>
+      
+          </div>
+         
+          <table className='min-w-full table-auto bg-gray-950 '>
+            <thead>
+              <tr className=' text-white border-b border-t'>
+                <th className='px-4 py-2'>Name</th>
+                <th className='px-4 py-2'>Objective</th>
+                <th className='px-4 py-2'>Input Format</th>
+                <th className='px-4 py-2'>Output Format</th>
+                <th className='px-4 py-2'>Constraints</th>
+                <th className='px-4 py-2'>Round</th>
+                <th className='px-4 py-2'>Sample Test Input</th>
+                <th className='px-4 py-2'>Sample Test Output</th>
+                <th className='px-4 py-2'>Explanation</th>
+                <th className='px-4 py-2'>Points</th>
+              </tr>
+            </thead>
+            <tbody className='text-white '>
+              {data.map((item) => (
+                <tr key={item.id}>
+                  <td className='  px-4 py-2'>{item.name}</td>
+                  <td className='  px-4 py-5'>{item.objective}</td>
+                  <td className='  px-4 py-2'>{item.inputFormat.join(', ')}</td>
+                  <td className='  only:px-4 py-2'>{item.outputFormat.join(', ')}</td>
+                  <td className='  px-4 py-2'>{item.constraints.join(', ')}</td>
+                  <td className='  px-4 py-2'>{item.round}</td>
+                  <td className='  px-4 py-2'>{item.sampleTestInput.join(', ')}</td>
+                  <td className='  px-4 py-2'>{item.sampleTestOutput.join(', ')}</td>
+                  <td className='   px-4 py-2'>{item.explanation.join(', ')}</td>
+                  <td className='  px-4 py-2'>{item.points}</td>
+                  
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Ques;
