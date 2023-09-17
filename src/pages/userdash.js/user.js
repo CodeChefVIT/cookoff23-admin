@@ -44,7 +44,7 @@ const Users = () => {
         <div className='max-h-screen overflow-y-auto'>
           <div className="flex justify-center items-center">
             <button
-              className="uppercase bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit('addscreen')}
             >
@@ -69,7 +69,7 @@ const Users = () => {
                 <tr key={item.id}>
                   <td className='px-5 py-2'>{item.name}</td>
                   <td className='px-4 py-2'>{item.email}</td>
-                  <td className='px-4 py-2'>{item.regno}</td>
+                  <td className='px-4 py-2'>{item.regNo}</td>
                   <td className='px-4 py-2'>{item.userRole}</td>
                 </tr>
               ))}

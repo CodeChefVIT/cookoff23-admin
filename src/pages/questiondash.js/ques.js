@@ -42,7 +42,7 @@ const Ques = () => {
         <div className='max-h-screen overflow-y-auto'>
           <div className="flex justify-center items-center">
           <button
-              className="uppercase bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit('addscreen')}
             >
@@ -50,7 +50,7 @@ const Ques = () => {
             </button>
             <Image src={logo} className="h-[100px] pb-5" />
             <button
-              className="uppercase bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit('userdash')}
             >
@@ -68,9 +68,7 @@ const Ques = () => {
                 <th className='px-4 py-2'>Output Format</th>
                 <th className='px-4 py-2'>Constraints</th>
                 <th className='px-4 py-2'>Round</th>
-                <th className='px-4 py-2'>Sample Test Input</th>
-                <th className='px-4 py-2'>Sample Test Output</th>
-                <th className='px-4 py-2'>Explanation</th>
+                
                 <th className='px-4 py-2'>Points</th>
               </tr>
             </thead>
@@ -79,13 +77,11 @@ const Ques = () => {
                 <tr key={item.id}>
                   <td className='  px-4 py-2'>{item.name}</td>
                   <td className='  px-4 py-5'>{item.objective}</td>
-                  <td className='  px-4 py-2'>{item.inputFormat.join(', ')}</td>
-                  <td className='  only:px-4 py-2'>{item.outputFormat.join(', ')}</td>
-                  <td className='  px-4 py-2'>{item.constraints.join(', ')}</td>
+                  <td className='  px-4 py-2'>{item.inputFormat}</td>
+                  <td className='  only:px-4 py-2'>{item.outputFormat}</td>
+                  <td className='  px-4 py-2'>{item.constraints}</td>
                   <td className='  px-4 py-2'>{item.round}</td>
-                  <td className='  px-4 py-2'>{item.sampleTestInput.join(', ')}</td>
-                  <td className='  px-4 py-2'>{item.sampleTestOutput.join(', ')}</td>
-                  <td className='   px-4 py-2'>{item.explanation.join(', ')}</td>
+                 
                   <td className='  px-4 py-2'>{item.points}</td>
                   
                 </tr>
