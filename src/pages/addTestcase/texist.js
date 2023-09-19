@@ -43,13 +43,13 @@ export default function Texist() {
           onClick={() => {
             {
               const TestCaseArray = JSON.parse(localStorage.getItem("tcArray"));
-              TestCaseArray.map((data) => (
-                <p className="text-white text-lg">data</p>
-              ));
+              // TestCaseArray.map((data,i) => (
+              //   <p className="text-white text-lg" key = {i}>data</p>
+              // ));
             }
           }}
         >
-          toArray()
+          {/* toArray() */}
         </button>
       </div>
     </div>
