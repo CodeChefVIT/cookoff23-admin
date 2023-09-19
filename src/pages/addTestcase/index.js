@@ -1,8 +1,7 @@
 import React from "react";
 import Navbar from "@/pages/navbar";
-import Qform from "./qform";
 import Tform from "./tform";
-
+import Texist from "./texist";
 
 export default function Addscreen() {
   return (
@@ -11,11 +10,11 @@ export default function Addscreen() {
 
       <div className="flex flex-row">
         <div className="w-[47vw] ml-[2vw] mr-[1vw]">
-          <Qform />
+          <Texist/>
         </div>
 
         <div className="w-[47vw] mr-[2vw] ml-[1vw]">
-          <Tform />
+          <Tform/>
         </div>
       </div>
     </main>

@@ -41,8 +41,8 @@ export default function Qform() {
           .then((response) => {
             console.log("Question Posted");
             console.log(response.data._id);
-            localStorage.setItem("question_id", response.data._id);
-            // router.push("/choice");
+            // localStorage.setItem("question_id", response.data._id);
+            router.push("/choice");
           });
       } catch {
         (error) => {
@@ -99,24 +99,24 @@ export default function Qform() {
 
   return (
     <>
-      <div className="flex bg-[#1F1F1F] w-[47vw] h-auto py-[10px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0">
+      <div className="flex bg-[#1F1F1F] h-auto py-[10px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0">
         Add Question
       </div>
       
       <div className="flex items-center justify-center content-center">
-        <div className="p-[50px] overflow-y-auto overflow-x-hidden h-[70vh] bg-[#161616]">
+        <div className="p-[50px] overflow-y-auto overflow-x-hidden h-[70vh] w-full bg-[#161616]">
           <form onSubmit={formik.handleSubmit}>
 
             {/* Row 1 */}
             <div className="w-[100%]">
-              <div className="flex flex-row ">
+              <div className="flex justify-between ">
 
                 {/* Round Input */}
                 <div>
                   <div className="text-[#FFFFFF] text-[22px]">Round</div>
                   <div className="mb-[40px]">
                     <input
-                      className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
+                      className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto"
                       id="round"
                       type="number"
                       onChange={formik.handleChange}
