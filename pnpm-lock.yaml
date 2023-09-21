@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -71,6 +71,10 @@ importers:
       zustand:
         specifier: ^4.4.1
         version: 4.4.1(react@18.2.0)
+    devDependencies:
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
 
 packages:
 
@@ -1774,6 +1778,11 @@ packages:
       '@babel/runtime': 7.22.11
       csstype: 3.1.2
     dev: false
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: true
 
   /draht@1.0.1:
     resolution: {integrity: sha512-yNNHL864dniNmIE9ZKD++mKypiAUAvVZtyV0QrbXH/ak3ebzFqo5xsmRBRqV8pZVhImOSBiyq500Wcmrf44zAg==}

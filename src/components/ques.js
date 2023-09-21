@@ -4,17 +4,20 @@ import logo from "@/assets/logo.svg";
 import Image from "next/image";
 import RefreshToken from "@/utils/RefreshToken";
 import Router from "next/router";
+import Navbar from "@/pages/navbar";
+
 const Ques = () => {
   const [data, setData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const fetchData = async () => {
+
     await RefreshToken();
     try {
       const round = "1";
       const access_token = localStorage.getItem("access_token");
 
       const response = await axios.get(
-        "https://api-cookoff-prod.codechefvit.com/ques/getOne",
+        `${process.env.NEXT_PUBLIC_APIURL}ques/getOne`,
         {
           // params: {
           //   round: round,
@@ -28,10 +31,12 @@ const Ques = () => {
       const temp = response.data;
       temp.sort((a, b) => a.round - b.round);
       setData(temp);
+      setLoading(temp);
       // console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    setLoading(true)
   };
 
   useEffect(() => {
@@ -45,16 +50,16 @@ const Ques = () => {
       await RefreshToken();
       const access_token = localStorage.getItem("access_token");
       const response = await axios.delete(
-        `https://api-cookoff-prod.codechefvit.com/ques/deleteQuestion/${postId}`,
+        `${process.env.NEXT_PUBLIC_APIURL}ques/deleteQuestion/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
         }
       );
+      window.location.reload(true);
 
       // console.log(`Deleted post with ID ${postId}`);
-      window.location.reload();
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -79,15 +84,16 @@ const Ques = () => {
         <div className="max-h-screen overflow-y-auto">
           <div className="flex justify-center items-center">
             <button
-              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit("userdash")}
             >
               Users
             </button>
-            <Image src={logo} className="h-[100px] pb-5" alt="logo" />
+            {/* <Image src={logo} className="h-[100px] pb-5" alt="logo" /> */}
+            <Navbar/>
             <button
-              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="absolute top-18 right-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit("addQuestion")}
             >
@@ -141,6 +147,9 @@ const Ques = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="text-white flex justify-center content-center items-center h-[80vh] text-[22px]">
+          {loading? loading: ('Loading...')}
         </div>
       </div>
     </>
