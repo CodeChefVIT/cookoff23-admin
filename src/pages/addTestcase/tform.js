@@ -9,6 +9,8 @@ import axios from "axios";
 import RefreshToken from "@/utils/RefreshToken";
 
 export default function Tform() {
+  const refresh = () => window.location.reload(true);
+
   const formik = useFormik({
     initialValues: {
       expectedOutput: "",
@@ -25,7 +27,8 @@ export default function Tform() {
       await RefreshToken();
       try {
         const access_token = localStorage.getItem("access_token");
-        const qid = localStorage.getItem("question_id");
+        // const qid = localStorage.getItem("question_id");
+        const qid = '650b5cb81986371e8f2f74c0'
         console.log("Test = ", test);
         for (let i = 0; i < test.length; i++) {
           values.expectedOutput = test[i].expectedOutput;
@@ -51,6 +54,7 @@ export default function Tform() {
           )
           .then((response) => {
             console.log("Testcase " ,i ," Posted");
+            refresh();
             // router.push("/choice");
           });
         }

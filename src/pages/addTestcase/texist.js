@@ -3,10 +3,11 @@
 import RefreshToken from "@/utils/RefreshToken";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { AiFillDelete } from "react-icons/ai";
 
 export default function Texist() {
   const [testCases, setTestCases] = useState([]);
-  const getId = "65075c6b9023ffa16dd8b0c0";
+  const getId = "650b5cb81986371e8f2f74c0";
 
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +32,36 @@ export default function Texist() {
     }
 
     fetchData();
-  }, []); // Empty dependency array to run the effect once on component mount
+  }, []);
+
+  const refresh = () => window.location.reload(true);
+
+  const handleDelete = async (i) => {
+    await RefreshToken();
+    console.log(i);
+    try {
+      const access_token = localStorage.getItem("access_token");
+      axios
+        .delete(
+          `https://api-cookoff-prod.codechefvit.com/testcases/delete/${i}`,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Testcase Deleted");
+          refresh();
+
+          // router.push("/choice");
+        });
+    } catch {
+      (error) => {
+        console.log("Testcase Delete Failed: " + error.response.data);
+      };
+    }
+  };
 
   return (
     <div>
@@ -43,8 +73,16 @@ export default function Texist() {
           testCases.map((testCase, i) => (
             <div key={i}>
               <div>
-                <div className="flex bg-[#1F1F1F] h-auto py-[10px] px-[25px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0 ">
-                  <div className="">Testcase {i+1}</div>
+                <div className="flex bg-[#1F1F1F] h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[30px] mb-0 ">
+                  <div className="">Testcase {i + 1}</div>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(testCase._id)}
+                  >
+                    <div className="text-white text-[25px]">
+                      <AiFillDelete />
+                    </div>
+                  </button>
                 </div>
                 <div className="bg-[#0c0c0c] p-5 leading-8 text-[20px]">
                   <div className="bg-[#212121] p-2">
@@ -99,7 +137,7 @@ export default function Texist() {
             </div>
           ))
         ) : (
-          <div>No test cases available.</div>
+          <div>No testcases available.</div>
         )}
       </div>
     </div>
