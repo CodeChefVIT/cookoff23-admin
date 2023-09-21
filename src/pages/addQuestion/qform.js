@@ -6,6 +6,8 @@ import axios from "axios";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
 import { useState } from "react";
+import RefreshToken from "@/utils/RefreshToken";
+import Router from "next/router";
 
 export default function Qform() {
   const formik = useFormik({
@@ -15,16 +17,20 @@ export default function Qform() {
       objective: "",
       inputFormat: [""],
       outputFormat: [""],
+      sampleTestInput: [""],
+      sampleTestOutput: [""],
       constraints: [""],
-      round: 0,
+      round: 1,
+      points: 0,
+      // explanation:"",
     },
 
     onSubmit: async (values) => {
       await RefreshToken();
       try {
         const access_token = localStorage.getItem("access_token");
-        values.inputFormat = inpFor;
-        values.outputFormat = outFor;
+        values.sampleTestInput = inpFor;
+        values.sampleTestOutput = outFor;
         console.log(values);
 
         axios
@@ -37,11 +43,11 @@ export default function Qform() {
               },
             }
           )
-          .then((response) => {
+          .then((response) => {alert("Posted!")
             console.log("Question Posted");
             console.log(response.data._id);
             // localStorage.setItem("question_id", response.data._id);
-            router.push("/choice");
+            Router.push("/choice");
           });
       } catch {
         (error) => {
@@ -129,22 +135,22 @@ export default function Qform() {
                   </div>
                 </div>
 
-                {/* Question Number Input */}
+                {/* Points Input */}
                 <div className="mx-[10px]">
                   <div className="text-[#FFFFFF] text-[22px]">
-                    Question Number
+                    Points
                   </div>
                   <div className="mb-[40px]">
                     <input
                       className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                      id="qno"
-                      type="text"
+                      id="points"
+                      type="number"
                       onChange={formik.handleChange}
-                      value={formik.values.qno}
+                      value={formik.values.points}
                     />
-                    {formik.errors.qno ? (
+                    {formik.errors.points ? (
                       <div className="text-[#D9D9D999] mt-1 ml-2">
-                        {formik.errors.qno}
+                        {formik.errors.points}
                       </div>
                     ) : null}
                   </div>
@@ -207,10 +213,66 @@ export default function Qform() {
               </div>
             </div>
 
+            {/* Explanation */}
+            <div>
+              <div className="text-[#FFFFFF] text-[22px]">Explanation</div>
+              <div className="mb-[40px]">
+                <input
+                  className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
+                  id="explanation"
+                  onChange={formik.handleChange}
+                  value={formik.values.explanation}
+                />
+                {formik.errors.explanation ? (
+                  <div className="text-[#D9D9D999] mt-1 ml-2">
+                    {formik.errors.explanation}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
             {/* Input Format */}
             <div>
+              <div className="text-[#FFFFFF] text-[22px]">Input Format</div>
+              <div className="mb-[40px]">
+                <input
+                  className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
+                  id="inputFormat[0]"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.inputFormat}
+                />
+                {formik.errors.inputFormat ? (
+                  <div className="text-[#D9D9D999] mt-1 ml-2">
+                    {formik.errors.inputFormat}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
+            {/* Output Format */}
+            <div>
+              <div className="text-[#FFFFFF] text-[22px]">Output Format</div>
+              <div className="mb-[40px]">
+                <input
+                  className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
+                  id="outputFormat[0]"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.outputFormat[0]}
+                />
+                {formik.errors.outputFormat ? (
+                  <div className="text-[#D9D9D999] mt-1 ml-2">
+                    {formik.errors.outputFormat[0]}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
+            {/* Sample Test Input */}
+            <div>
               <div className="text-[#FFFFFF] text-[22px] flex gap-2 mb-4">
-                <div>Input Format</div>
+                <div>Sample Test Input</div>
                 <button
                   type="button"
                   className="text-[30px]"
@@ -251,10 +313,10 @@ export default function Qform() {
               })}
             </div>
 
-            {/* Output Format */}
+            {/* Sample Test Output */}
             <div>
               <div className="text-[#FFFFFF] text-[22px] flex gap-2 mb-4">
-                <div>Output Format</div>
+                <div>Sample Test Output</div>
                 <button
                   type="button"
                   className="text-[30px]"
