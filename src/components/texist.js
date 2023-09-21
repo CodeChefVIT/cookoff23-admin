@@ -112,14 +112,14 @@ export default function Texist({id}) {
                     Memory: {JSON.stringify(testCase.memory)}
                     <br />
                   </div>
-                  <div className="bg-[#212121] p-2">
-                    Number:{JSON.stringify(testCase.number)}
+                  {/* <div className="bg-[#212121] p-2">
+                    Number: {JSON.stringify(testCase.number)}
                     <br />
-                  </div>
-                  <div className="bg-[#212121] p-2">
+                  </div> */}
+                  {/* <div className="bg-[#212121] p-2">
                     Question: {JSON.stringify(testCase.question)}
                     <br />
-                  </div>
+                  </div> */}
                   <div className="bg-[#212121] p-2">
                     Time: {JSON.stringify(testCase.time)}
                     <br />
