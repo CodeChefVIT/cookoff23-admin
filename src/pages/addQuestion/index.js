@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/pages/navbar";
 import Qform from "../../components/qform";
 import Router from "next/router";
+import Router from "next/router";
 
 export default function Addscreen() {
   return (
@@ -14,7 +15,6 @@ export default function Addscreen() {
         Go Back
       </button>
       <Navbar />
-
       <Qform />
     </main>
   );

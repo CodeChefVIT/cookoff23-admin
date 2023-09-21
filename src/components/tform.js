@@ -8,18 +8,18 @@ import { AiFillDelete } from "react-icons/ai";
 import axios from "axios";
 import RefreshToken from "@/utils/RefreshToken";
 
-export default function Tform({id}) {
+export default function Tform({ id }) {
   const refresh = () => window.location.reload(true);
 
   const formik = useFormik({
     initialValues: {
       expectedOutput: "",
       input: "",
-      number: 0,
+      group: 0,
       hidden: true,
       time: 0,
       memory: 0,
-      explanation: "",
+      // explanation: "",
       question: "",
     },
 
@@ -28,17 +28,18 @@ export default function Tform({id}) {
       try {
         const access_token = localStorage.getItem("access_token");
         // const qid = localStorage.getItem("question_id");
-        const qid = id
+        const qid = id;
         console.log("Test = ", test);
         for (let i = 0; i < test.length; i++) {
           values.expectedOutput = test[i].expectedOutput;
           values.input = test[i].input;
-          values.number = test[i].number;
+          values.group = test[i].group;
           values.hidden = test[i].hidden;
           values.time = test[i].time;
           values.memory = test[i].memory;
-          values.explanation = test[i].explanation;
+          // values.explanation = test[i].explanation;
           values.question = qid;
+          values.number = 0
 
           console.log("Values: ", values);
 
@@ -74,11 +75,11 @@ export default function Tform({id}) {
     {
       expectedOutput: "",
       input: "",
-      number: 0,
+      group: 0,
       hidden: true,
       time: 0,
       memory: 0,
-      explanation: "",
+      // explanation: "",
       question: "",
     },
   ]);
@@ -89,11 +90,11 @@ export default function Tform({id}) {
       {
         expectedOutput: "",
         input: "",
-        number: 0,
+        group: 0,
         hidden: true,
         time: 0,
         memory: 0,
-        explanation: "",
+        // explanation: "",
         question: "",
       },
     ]);
@@ -101,8 +102,13 @@ export default function Tform({id}) {
 
   const handleChange = (e, i) => {
     formik.handleChange;
-    const { name, value } = e.target;
+    let { name, value } = e.target;
     const list = [...test];
+    if (name === "group" || name === "memory" || name === "time") {
+      value = parseInt(value);
+    } else if (name === "hidden") {
+      value = value === "true";
+    }
     list[i][name] = value;
     setTest(list);
     console.log(test);
@@ -175,21 +181,21 @@ export default function Tform({id}) {
                       {/* Row 1 */}
                       <div>
                         <div className="flex flex-row">
-                          {/* Number */}
+                          {/* group */}
                           <div>
                             <div className="text-[#FFFFFF] text-[22px]">
-                              Number
+                              Group
                             </div>
                             <div className="mb-[40px]">
                               <input
                                 className="w-full py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
                                 type="number"
-                                name="number"
+                                name="group"
                                 onChange={(e) => handleChange(e, i)}
                               />
-                              {formik.errors.number ? (
+                              {formik.errors.group ? (
                                 <div className="text-[#D9D9D999] mt-1 ml-2">
-                                  {formik.errors.number}
+                                  {formik.errors.group}
                                 </div>
                               ) : null}
                             </div>
@@ -265,7 +271,7 @@ export default function Tform({id}) {
                       </div>
 
                       {/* Explanation */}
-                      <div>
+                      {/* <div>
                         <div className="text-[#FFFFFF] text-[22px]">
                           Explanation
                         </div>
@@ -280,7 +286,7 @@ export default function Tform({id}) {
                             {formik.errors.explanation}
                           </div>
                         ) : null}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 );
