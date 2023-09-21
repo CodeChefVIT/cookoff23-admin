@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "@/pages/navbar";
-import Tform from "./tform";
-import Texist from "./texist";
-import codeEditor from "../components/codeEditor";
+import Tform from "../../components/tform";
+import Texist from "../../components/texist";
+import codeEditor from "../../components/codeEditor";
 
 export default function Addscreen() {
   return (
