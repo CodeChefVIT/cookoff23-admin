@@ -44,24 +44,28 @@ export default function Tform({ id }) {
           console.log("Values: ", values);
 
           axios
-            .post(
-              "https://api-cookoff-prod.codechefvit.com/testcases/create",
-              values,
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                },
-              }
-            )
-            .then((response) => {
-              console.log("Testcase ", i, " Posted");
-              refresh();
-              // router.push("/choice");
-            });
+          .post(
+            `${process.env.NEXT_PUBLIC_APIURL}testcases/create`,
+            values,
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log("Testcase " ,i ," Posted");
+            refresh();
+            // router.push("/choice");
+          });
         }
+        alert("Testcase Posted!");
+
       } catch {
         (error) => {
-          console.log("Question Post failed: " + error.response.data);
+          console.log("Testcase Post failed: " + error.response.data);
+          alert("Testcase posted failed!");
+
         };
       }
     },
@@ -295,7 +299,7 @@ export default function Tform({ id }) {
                     className=" text-[#D9D9D9] font-semibold py-[8px] px-[26px] text-[22px] border-[2px] border-[#EB5939] bg-[#EB5939] rounded-[6px] hover:bg-[#D9D9D9] hover:text-black mt-3"
                     type="submit"
                     onClick={() => {
-                      console.log("Clicked!");
+                      // alert("Testcase Posted!")
                     }}
                   >
                     Save Changes

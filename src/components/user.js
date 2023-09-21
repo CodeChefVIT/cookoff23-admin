@@ -4,6 +4,7 @@ import logo from "@/assets/logo.svg";
 import Image from "next/image";
 import RefreshToken from "@/utils/RefreshToken";
 import Router from "next/router";
+import Navbar from "@/pages/navbar";
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ const Users = () => {
         const access_token = localStorage.getItem("access_token");
 
         const response = await axios.get(
-          "https://api-cookoff-prod.codechefvit.com/admin/getallusers",
+          `${process.env.NEXT_PUBLIC_APIURL}admin/getallusers`,
           {
             params: {
               round: round,
@@ -47,13 +48,15 @@ const Users = () => {
         <div className="max-h-screen overflow-y-auto">
           <div className="flex justify-center items-center">
             <button
-              className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit("questiondash")}
             >
               Questions
             </button>
-            <Image src={logo} className="h-[100px] pb-5" alt="logo" />
+            
+            {/* <Image src={logo} className="h-[100px] pb-5" alt="logo" /> */}
+            <Navbar/>
           </div>
 
           <table className="min-w-full table-auto bg-gray-950">

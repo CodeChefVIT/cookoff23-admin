@@ -14,7 +14,7 @@ export default function Texist({id}) {
       await RefreshToken();
       const access_token = localStorage.getItem("access_token");
       const response = await axios.post(
-        "https://api-cookoff-prod.codechefvit.com/ques/getId",
+        `${process.env.NEXT_PUBLIC_APIURL}ques/getId`,
         { id: getId },
         {
           headers: {
@@ -47,7 +47,7 @@ export default function Texist({id}) {
       const access_token = localStorage.getItem("access_token");
       axios
         .delete(
-          `https://api-cookoff-prod.codechefvit.com/testcases/delete/${i}`,
+          `${process.env.NEXT_PUBLIC_APIURL}testcases/delete/${i}`,
           {
             headers: {
               Authorization: `Bearer ${access_token}`,

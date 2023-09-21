@@ -31,19 +31,17 @@ export default function Qform() {
         const access_token = localStorage.getItem("access_token");
         values.sampleTestInput = inpFor;
         values.sampleTestOutput = outFor;
+        values.constraints = constFor;
         console.log(values);
 
         axios
-          .post(
-            "https://api-cookoff-prod.codechefvit.com/ques/createQues",
-            values,
-            {
-              headers: {
-                Authorization: `Bearer ${access_token}`,
-              },
-            }
-          )
-          .then((response) => {alert("Posted!")
+          .post(`${process.env.NEXT_PUBLIC_APIURL}ques/createQues`, values, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+          .then((response) => {
+            alert("Posted!");
             console.log("Question Posted");
             console.log(response.data._id);
             // localStorage.setItem("question_id", response.data._id);
@@ -97,9 +95,30 @@ export default function Qform() {
     setOutFor(deleteVal);
   };
 
+  // Constraints:
+  const [constFor, setConstFor] = useState([""]);
+  const handleConstClick = () => {
+    const temp = [...constFor, []];
+    setConstFor(temp);
+  };
+
+  const handleConstOnChange = (onChangeValue, i) => {
+    formik.handleChange;
+    const constraints = [...constFor];
+    constraints[i] = onChangeValue.target.value;
+    setConstFor(constraints);
+  };
+
+  const handleConstDelete = (i) => {
+    const deleteVal = [...constFor];
+    deleteVal.splice(i, 1);
+    setConstFor(deleteVal);
+  };
+
   const setFormikArrays = () => {
     console.log("Input: ", inpFor);
     console.log("Output: ", outFor);
+    console.log("Constraints: ", constFor);
   };
 
   return (
@@ -107,15 +126,13 @@ export default function Qform() {
       <div className="flex bg-[#1F1F1F] h-auto py-[10px] items-center justify-center content-center text-[22px] text-white mt-[30px] mb-0">
         Add Question
       </div>
-      
+
       <div className="flex items-center justify-center content-center">
         <div className="p-[50px] overflow-y-auto overflow-x-hidden h-[70vh] w-full bg-[#161616]">
           <form onSubmit={formik.handleSubmit}>
-
             {/* Row 1 */}
             <div className="w-[100%]">
               <div className="flex justify-between ">
-
                 {/* Round Input */}
                 <div>
                   <div className="text-[#FFFFFF] text-[22px]">Round</div>
@@ -136,10 +153,8 @@ export default function Qform() {
                 </div>
 
                 {/* Points Input */}
-                <div className="mx-[10px]">
-                  <div className="text-[#FFFFFF] text-[22px]">
-                    Points
-                  </div>
+                <div className="mr-[10px] ">
+                  <div className="text-[#FFFFFF] text-[22px]">Points</div>
                   <div className="mb-[40px]">
                     <input
                       className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
@@ -155,7 +170,6 @@ export default function Qform() {
                     ) : null}
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -197,20 +211,46 @@ export default function Qform() {
 
             {/* Constraints */}
             <div>
-              <div className="text-[#FFFFFF] text-[22px]">Constraints</div>
-              <div className="mb-[40px]">
-                <input
-                  className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
-                  id="constraints"
-                  onChange={formik.handleChange}
-                  value={formik.values.constraints}
-                />
-                {formik.errors.constraints ? (
-                  <div className="text-[#D9D9D999] mt-1 ml-2">
-                    {formik.errors.constraints}
-                  </div>
-                ) : null}
+              <div className="text-[#FFFFFF] text-[22px] flex gap-2 mb-4">
+                <div>Constraints</div>
+                <button
+                  type="button"
+                  className="text-[30px]"
+                  onClick={() => handleConstClick()}
+                >
+                  <AiFillPlusSquare />
+                </button>
               </div>
+
+              {constFor.map((data, i) => {
+                return (
+                  <div
+                    className="mx-[10px] flex flex-row content-center"
+                    key={i}
+                  >
+                    <div className="text-[#FFFFFF] text-[22px] mt-[20px]">
+                      Constraint {i + 1}{" "}
+                    </div>
+                    <div className="mb-[40px]">
+                      <input
+                        className="w-[280px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
+                        type="text"
+                        onChange={(e) => handleConstOnChange(e, i)}
+                      />
+                      {formik.errors.constraints ? (
+                        <div className="text-[#D9D9D999] mt-1 ml-2">
+                          {formik.errors.constraints}
+                        </div>
+                      ) : null}
+                    </div>
+                    <button onClick={() => handleConstDelete(i)} type="button">
+                      <div className="text-white flex content-center items-center mb-[40px]">
+                        <AiFillDelete className="text-[30px]" />
+                      </div>
+                    </button>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Explanation */}
@@ -278,7 +318,7 @@ export default function Qform() {
                   className="text-[30px]"
                   onClick={() => handleInpClick()}
                 >
-                  <AiFillPlusSquare/>
+                  <AiFillPlusSquare />
                 </button>
               </div>
 
