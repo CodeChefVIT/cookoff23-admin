@@ -21,9 +21,11 @@ const Ques = () => {
             Authorization: `Bearer ${access_token}`,
           },
         });
+        
 
         setData(response.data);
         console.log(response.data);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -31,9 +33,38 @@ const Ques = () => {
 
     fetchData();
   }, []);
+  const handleDelete = async (postId) => {
+    await RefreshToken();
+  
+    try {
+      const access_token = localStorage.getItem('access_token');
+      const response = await axios.delete(`https://api-cookoff-prod.codechefvit.com/ques/deleteQuestion/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+  
+      console.log(`Deleted post with ID ${postId}`);
+      window.location.reload();
+      
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+  };
+  
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
   };
+  
 
   return (
     <>
@@ -52,7 +83,7 @@ const Ques = () => {
             <button
               className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
-              onClick={() => handleSubmit('userdash')}
+              onClick={() => handleSubmit('userdisplay')}
             >
              Users
             </button>
@@ -74,7 +105,8 @@ const Ques = () => {
             </thead>
             <tbody className='text-white '>
               {data.map((item) => (
-                <tr key={item.id}>
+                console.log(item._id),
+                <tr key={item._id}>
                   <td className='  px-4 py-2'>{item.name}</td>
                   <td className='  px-4 py-5'>{item.objective}</td>
                   <td className='  px-4 py-2'>{item.inputFormat}</td>
@@ -83,7 +115,25 @@ const Ques = () => {
                   <td className='  px-4 py-2'>{item.round}</td>
                  
                   <td className='  px-4 py-2'>{item.points}</td>
-                  
+                  <td className='px-4 py-2'>
+                  <button className="rounded-full border hover:bg-white hover:text-black text-white font-bold py-2 px-4  "  type="button"
+                  onClick={() => handleSubmit('addscreen')}>
+                  Testcase
+                  </button>
+                </td>
+                <td className='px-4 py-2'>
+                <button
+                      className="rounded-full border hover:bg-white hover:text-black text-white font-bold py-2 px-4"
+                      type="button"
+                      onClick={() => {
+                        handleDelete(item._id);
+                        
+                      }}
+                    >
+                      Delete
+                     
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

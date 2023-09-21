@@ -71,6 +71,7 @@ const Users = () => {
                   <td className='px-4 py-2'>{item.email}</td>
                   <td className='px-4 py-2'>{item.regNo}</td>
                   <td className='px-4 py-2'>{item.userRole}</td>
+                 
                 </tr>
               ))}
             </tbody>
