@@ -1,8 +1,9 @@
+//Will Add Router.push according to main page flow.
+
 import React from "react";
 import Router from "next/router";
 
 export default function Choice() {
-
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
   };
