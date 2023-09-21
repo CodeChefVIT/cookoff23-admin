@@ -5,9 +5,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 
-export default function Texist() {
+export default function Texist({id}) {
   const [testCases, setTestCases] = useState([]);
-  const getId = "65075c6b9023ffa16dd8b0c1";
+  const getId = id;
 
  const fetchData = async () => {
     try {
@@ -33,8 +33,9 @@ export default function Texist() {
   }
 
   useEffect(() => {
+    if(!getId) return
     fetchData();
-  }, []);
+  },[getId]);
 
   const refresh = () => window.location.reload(true);
 
@@ -95,43 +96,34 @@ export default function Texist() {
                     Expected Output: {JSON.stringify(testCase.expectedOutput)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2">
                     Group: {JSON.stringify(testCase.group)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2">
                     Hidden: {JSON.stringify(testCase.hidden)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2 overflow-auto">
                     Input:
                     <pre dangerouslySetInnerHTML={{ __html: testCase.input }} />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2">
                     Memory: {JSON.stringify(testCase.memory)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2">
                     Number:{JSON.stringify(testCase.number)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
-
                   <div className="bg-[#212121] p-2">
                     Question: {JSON.stringify(testCase.question)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                   <div className="bg-[#212121] p-2">
                     Time: {JSON.stringify(testCase.time)}
                     <br />
                   </div>
-                  {/* <div div className="bg-[#0c0c0c] p-1" /> */}
                 </div>
               </div>
           ))

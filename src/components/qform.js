@@ -47,7 +47,7 @@ export default function Qform() {
             console.log("Question Posted");
             console.log(response.data._id);
             // localStorage.setItem("question_id", response.data._id);
-            Router.push("/choice");
+            Router.push("/questiondash");
           });
       } catch {
         (error) => {

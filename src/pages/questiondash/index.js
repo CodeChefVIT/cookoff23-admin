@@ -1,11 +1,10 @@
 import React from "react";
-
-import UserDis from "../../components/userdis";
+import Ques from "../../components/ques";
 
 const App = () => {
   return (
     <>
-      <UserDis />
+      <Ques />
     </>
   );
 };

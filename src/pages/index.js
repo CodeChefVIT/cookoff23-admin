@@ -52,7 +52,7 @@ function Login() {
             console.log(access_token);
             localStorage.setItem("access_token", response.data.accessToken);
             localStorage.setItem("refresh_token", response.data.refreshToken);
-            console.log("login successful: "+ response.data.accessToken);
+            // console.log("login successful: "+ response.data.accessToken);
           })
           .then(() => {
             router.push("/choice");

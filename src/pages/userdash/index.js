@@ -1,11 +1,11 @@
 import React from "react";
 
-import UserDis from "../../components/userdis";
+import Users from "../../components/user";
 
 const App = () => {
   return (
     <>
-      <UserDis />
+      <Users />
     </>
   );
 };

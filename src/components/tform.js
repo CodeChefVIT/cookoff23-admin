@@ -8,7 +8,7 @@ import { AiFillDelete } from "react-icons/ai";
 import axios from "axios";
 import RefreshToken from "@/utils/RefreshToken";
 
-export default function Tform() {
+export default function Tform({id}) {
   const refresh = () => window.location.reload(true);
 
   const formik = useFormik({
@@ -28,7 +28,7 @@ export default function Tform() {
       try {
         const access_token = localStorage.getItem("access_token");
         // const qid = localStorage.getItem("question_id");
-        const qid = '650b5cb81986371e8f2f74c0'
+        const qid = id
         console.log("Test = ", test);
         for (let i = 0; i < test.length; i++) {
           values.expectedOutput = test[i].expectedOutput;
