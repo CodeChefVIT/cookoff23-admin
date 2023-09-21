@@ -50,7 +50,7 @@ const Users = () => {
             >
               Questions
             </button>
-            <Image src={logo} className="h-[100px] pb-5" />
+            <Image src={logo} className="h-[100px] pb-5" alt="logo"/>
           </div>
 
           <table className='min-w-full table-auto bg-gray-950'>

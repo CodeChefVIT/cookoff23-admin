@@ -79,7 +79,7 @@ const Ques = () => {
             >
               Questions
             </button>
-            <Image src={logo} className="h-[100px] pb-5" />
+            <Image src={logo} className="h-[100px] pb-5" alt="logo"/>
             <button
               className="uppercase border  text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
