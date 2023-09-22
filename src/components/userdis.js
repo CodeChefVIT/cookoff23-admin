@@ -9,15 +9,17 @@ import RefreshToken from "@/utils/RefreshToken";
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import codeEditor from "./codeEditor";
+// let got = true
 
-const userdis = () => {
+const userdis = ({ id }) => {
+  console.log("Reg: ", id);
   const [data, setData] = useState([]);
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
   };
 
   const fetchData = async () => {
-    const reg = "22BCI0013";
+    const reg = id;
     await RefreshToken();
     try {
       const access_token = localStorage.getItem("access_token");
@@ -29,43 +31,44 @@ const userdis = () => {
             Authorization: `Bearer ${access_token}`,
           },
         }
-      );
-
-      const temp = response.data;
-      setData(temp);
-      console.log(temp);
+        );
+        
+        const temp = response.data;
+        setData(temp);
+        console.log(temp);
+        got = true;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
 
-  return (
+  // console.log("GOT:",got);
+  // return got ? (
+    return(
     <>
       <div className="overflow-x-auto">
         <div className="max-h-screen overflow-y-auto">
           <div className="flex justify-center items-center">
-          <button
+            <button
               className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
               onClick={() => handleSubmit("userdash")}
             >
               Go Back
             </button>
-            
+
             {/* <Image src={logo} className="h-[100px] pb-5" alt="logo" /> */}
             <Navbar />
             {/* <button
-              className="absolute top-18 right-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-              type="button"
-              onClick={() => handleSubmit("questiondash")}
-            >
-              Questions
-            </button> */}
-            
+                className="absolute top-18 right-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                type="button"
+                onClick={() => handleSubmit("questiondash")}
+              >
+                Questions
+              </button> */}
           </div>
         </div>
       </div>
@@ -111,7 +114,9 @@ const userdis = () => {
           <div className="flex bg-[#111111]  h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[10px] mb-0 ">
             User Submission
           </div>
-          <div className="">{codeEditor(`print("Bhai Bhai Bhai!!!")`, 71, `40vh`)}</div>
+          <div className="">
+            {codeEditor(`print("Bhai Bhai Bhai!!!")`, 71, `40vh`)}
+          </div>
         </div>
         <div className="flex flex-col w-[48vw] m-[1vw]">
           <div className="flex bg-[#111111]  h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[10px] mb-0 ">
@@ -139,8 +144,8 @@ const userdis = () => {
           </div>
         </div>
       </div>
-    </>
-  );
+    </>)
+    // :(<div className="text-white">User Not Found</div>)
 };
 
 export default userdis;
