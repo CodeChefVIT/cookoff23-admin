@@ -132,7 +132,7 @@ export default function Qform() {
           <form onSubmit={formik.handleSubmit}>
             {/* Row 1 */}
             <div className="w-[100%]">
-              <div className="flex justify-between ">
+              <div className="flex justify-between mr-[1.5vw] ">
                 {/* Round Input */}
                 <div>
                   <div className="text-[#FFFFFF] text-[22px]">Round</div>

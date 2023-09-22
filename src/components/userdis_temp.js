@@ -67,8 +67,6 @@ const userdis = ({ id }) => {
   }, []);
   return (
     <>
-    {/* Bhai scroll nai hora 😭 */}
-    <div className="overflow-auto">
       <div className="overflow">
         <div className="max-h-screen overflow">
           <div className="flex justify-center items-center">
@@ -92,7 +90,7 @@ const userdis = ({ id }) => {
             {data.name}{" "}
           </div>
           <div className="flex gap-2 bg-[#124215] px-5 rounded-[50px] text-[#4bff57]">
-            <p className="capitalize">Round: {data.roundQualified}</p>
+            <p>Round: {data.roundQualified}</p>
           </div>
         </div>
         <div className="bg-[#161616] flex flex-col gap-8 mt-0 p-5 px-[27px]">
@@ -100,63 +98,78 @@ const userdis = ({ id }) => {
             <div className="flex gap-2 flex-col">
               <div className="flex flex-row gap-2">
                 <p className="text-[#a89b85]">ID: </p>
-                <p className="capitalize">{data._id}</p>
+                <p>{data._id}</p>
               </div>
               <div className="flex flex-row gap-2">
                 <p className="text-[#a89b85]">Reg No: </p>
-                <p className="capitalize">{data.regNo}</p>
+                <p>{data.regNo}</p>
               </div>
             </div>
             <div className="flex gap-2 flex-col">
               <div className="flex flex-row gap-2">
                 <p className="text-[#a89b85]">Email: </p>
-                <p className="">{data.email}</p>
+                <p>{data.email}</p>
               </div>
               <div className="flex flex-row gap-2">
                 <p className="text-[#a89b85]">Score: </p>
-                <p className="capitalize">{data.score}</p>
+                <p>{data.score}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {codeData.length > 0 ? (
-        codeData.map((items, i) => (
-          <div className="flex flex-col text-white items-center justify-center content-center mt-[2vw] text-[20px]" key={i}>
-            <div className="p-3 bg-[#1b1a1a] w-[97vw] flex items-center justify-center content-center">
-              Code {i + 1}. {items.question_id}
-            </div>
-            <div className="flex flex-row items-top justify-center content-center gap-[1vw]">
-              <div className="w-[48vw] bg-[#161616]">
-                {codeEditor(items.code, items.language_id, `max`)}
+      <div className="flex flex-row">
+        <div className="flex flex-col w-[48vw] m-[1vw] text-white">
+          <div className="flex bg-[#111111]  h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[10px] mb-0 ">
+            User Submission
+          </div>
+          {codeData.length > 0 ? (
+            codeData.map((items, i) => (
+              <div className=" mt-[30px] px-[25px]" key={i}>
+                <div className="text-[20px] bg-[#161616] px-5 py-1">
+                  Code {i+1} : {items.question_id}
+                  </div>
+                <div className="">
+                  {codeEditor(items.code, items.language_id, `max`)}
+                </div>
               </div>
-              <div className="w-[48vw] bg-[#161616]">
-                <div className="px-[25px] m-[1vh]">
+            ))
+          ) : (
+            <div>No Codes Available</div>
+          )}
+        </div>
+        <div className="flex flex-col w-[48vw] m-[1vw]">
+          <div className="flex bg-[#111111]  h-auto py-[10px] px-[25px] items-center justify-between content-center text-[22px] text-white mt-[10px] mb-0 ">
+            Pass Status
+          </div>
+          <div className="bg-[#161616] text-white text-[22px] h-full">
+            {codeData.length > 0 ? (
+              codeData.map((items, i) => (
+                <div className=" mt-[30px] px-[25px]" key={i}>
                   <div className="flex flex-row gap-2">
                     <p className="text-[#a89b85]">Compilation Error: </p>
-                    <p className="capitalize">{JSON.stringify(items.compilation_error)}</p>
+                    <p>{JSON.stringify(items.compilation_error)}</p>
                   </div>
                   <div className="flex flex-row gap-2">
                     <p className="text-[#a89b85]">Runtime Error: </p>
-                    <p className="capitalize">{JSON.stringify(items.runtime_error)}</p>
+                    <p>{JSON.stringify(items.runtime_error)}</p>
                   </div>
                   <div className="flex flex-row gap-2">
                     <p className="text-[#a89b85]">Time Limit Exceeded: </p>
-                    <p className="capitalize">{JSON.stringify(items.time_limit_exceeded)}</p>
+                    <p>{JSON.stringify(items.time_limit_exceeded)}</p>
                   </div>
                   <div className="flex flex-row gap-2">
                     <p className="text-[#a89b85]">Output Match: </p>
-                    <p className="capitalize">{JSON.stringify(items.output_did_not_match)}</p>
+                    <p>{JSON.stringify(items.output_did_not_match)}</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              ))
+            ) : (
+              <div>No codeData available.</div>
+            )}
           </div>
-        ))
-      ) : (
-        <div>No Codes Available</div>
-      )}
+        </div>
       </div>
     </>
   );
