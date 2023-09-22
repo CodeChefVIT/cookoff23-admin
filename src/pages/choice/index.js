@@ -2,6 +2,7 @@
 
 import React from "react";
 import Router from "next/router";
+import Navbar from "../navbar";
 
 export default function Choice() {
   const handleSubmit = (value) => {
@@ -9,8 +10,13 @@ export default function Choice() {
   };
 
   return (
-    <div className="flex items-center justify-evenly content-center h-screen">
-      <div className="">
+    <>
+    <div className="flex flex-col items-center justify-evenly content-center mt-[20vh]">
+      <div className="flex ">
+      <Navbar/>
+      </div>
+      <div className="flex flex-row justify-evenly w-[100vw] mt-20">
+      <div>
         <button
           className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
           type="submit"
@@ -30,5 +36,7 @@ export default function Choice() {
         </button>
       </div>
     </div>
+    </div>
+    </>
   );
 }

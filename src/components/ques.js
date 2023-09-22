@@ -86,6 +86,13 @@ const Ques = () => {
             <button
               className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
+              onClick={() => handleSubmit("choice")}
+            >
+              Go Back
+            </button>
+            <button
+              className="absolute top-18 left-40 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              type="button"
               onClick={() => handleSubmit("userdash")}
             >
               Users

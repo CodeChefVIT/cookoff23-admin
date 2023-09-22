@@ -5,47 +5,47 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import "@uiw/codemirror-extensions-langs"
 
 
-export default function codeEditor(code,lang) {
+export default function codeEditor(code,lang,h) {
   switch(lang){
     case 71:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.python()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.python()]}/>
         </div>
       );
 
       case 50:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.c()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.c()]}/>
         </div>
       );
 
       case 54:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.cpp()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.cpp()]}/>
         </div>
       );
 
       case 63:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.javascript()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.javascript()]}/>
         </div>
       );
 
       case 62:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.java()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.java()]}/>
         </div>
       );
 
       case 73:
       return (
         <div className="">
-          <CodeMirror value={code} height="100px" theme={vscodeDark} readOnly={true} extensions={[langs.rust()]}/>
+          <CodeMirror value={code} height={h} theme={vscodeDark} readOnly={true} extensions={[langs.rust()]}/>
         </div>
       );
 
