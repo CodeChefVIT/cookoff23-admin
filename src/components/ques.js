@@ -5,23 +5,24 @@ import Image from "next/image";
 import RefreshToken from "@/utils/RefreshToken";
 import Router from "next/router";
 import Navbar from "@/pages/navbar";
+import {HiFilter} from "react-icons/hi"
 
 const Ques = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRound, setSelectedRound] = useState(null);
+
   const fetchData = async () => {
 
     await RefreshToken();
     try {
-      const round = "1";
+      
       const access_token = localStorage.getItem("access_token");
 
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_APIURL}ques/getOne`,
         {
-          // params: {
-          //   round: round,
-          // },
+          
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
@@ -40,9 +41,11 @@ const Ques = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
+   
+      fetchData();
+  }, [selectedRound]);
+  
+ 
   const handleDelete = async (postId) => {
     if (!confirm("Do you want to delete?")) return;
 
@@ -73,16 +76,26 @@ const Ques = () => {
       console.log(error.config);
     }
   };
-
+ 
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
   };
+  const handleFilter = (round) => {
+  
+    setSelectedRound(round);
+    const filteredData = data.filter((item) => item.round === round);
+    setData(filteredData);
+  };
+  
 
   return (
     <>
       <div className="overflow-x-auto">
         <div className="max-h-screen overflow-y-auto">
+        
           <div className="flex justify-center items-center">
+          
+          
             <button
               className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
               type="button"
@@ -106,6 +119,31 @@ const Ques = () => {
             >
               Add Question
             </button>
+            <div className="flex">
+            <button
+  className="flex uppercase border text-white py-2 px-4 rounded hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 mt-12 mr-3"
+  type="button"
+  onClick={() => handleFilter(0)} 
+>
+  <HiFilter/><p>0</p>
+</button>
+            <button
+  className="flex uppercase border text-white py-2 px-4 rounded  hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 mt-12 mr-3"
+  type="button"
+  onClick={() => handleFilter(1)} 
+>
+<HiFilter/><p>1</p>
+</button>
+<button
+  className="flex uppercase border text-white py-2 px-4 mr-5 rounded hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 mt-12"
+  type="button"
+  onClick={() => handleFilter(2)} 
+>
+<HiFilter/><p>2</p>
+</button>
+</div>
+{/* Add more buttons for other round values as needed */}
+
           </div>
 
           <table className="min-w-full table-auto bg-gray-950 ">
