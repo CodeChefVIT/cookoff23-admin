@@ -72,7 +72,9 @@ const Users = () => {
                 <th className="px-2 py-4 text-left">Name</th>
                 <th className="px-2 py-4 text-left">Email</th>
                 <th className="px-2 py-4 text-left">RegNo</th>
+                <th className="px-2 py-4 text-left">Score</th>
                 <th className="px-2 py-4 text-left">UserRole</th>
+                <th className=" px-2 py-4 text-left">Details</th>
               </tr>
             </thead>
             <tbody className="text-white">
@@ -81,7 +83,17 @@ const Users = () => {
                   <td className="px-5 py-2">{item.name}</td>
                   <td className="px-4 py-2">{item.email}</td>
                   <td className="px-4 py-2">{item.regNo}</td>
+                  <td className="px-4 py-2">{item.score}</td>
                   <td className="px-4 py-2">{item.userRole}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      className="rounded-full border hover:bg-white hover:text-black text-white font-bold py-2 px-4  "
+                      type="button"
+                      onClick={() => handleSubmit(`userdisplay?id=${item.regNo}`)}
+                    >
+                    View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
