@@ -10,7 +10,7 @@ import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import codeEditor from "./codeEditor";
 
-const userdis = ({ id }) => {
+const Userdis = ({ id }) => {
   const reg = id;
   // console.log("Reg: ", typeof(id));
   const [data, setData] = useState([]);
@@ -162,4 +162,4 @@ const userdis = ({ id }) => {
   );
 };
 
-export default userdis;
+export default Userdis;
