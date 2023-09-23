@@ -65,7 +65,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => enableRound(1)}
+              onClick={() => enableRound(0)}
             >
               Round 1 Enable
             </button>
@@ -73,7 +73,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => disableRound(1)}
+              onClick={() => disableRound(0)}
             >
               Round 1 Disable
             </button>
@@ -83,7 +83,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => enableRound(2)}
+              onClick={() => enableRound(1)}
             >
               Round 2 Enable
             </button>
@@ -91,7 +91,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => disableRound(2)}
+              onClick={() => disableRound(1)}
             >
               Round 2 Disable
             </button>
@@ -101,7 +101,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => enableRound(3)}
+              onClick={() => enableRound(2)}
             >
               Round 3 Enable
             </button>
@@ -109,7 +109,7 @@ export default function Rounds() {
             <button
               className="uppercase w-[300px] text-[#D9D9D9] font-semibold py-[16px] px-[26px] text-[22px] border-[3px] border-[#D9D9D9] rounded-full hover:bg-[#D9D9D9] hover:text-black mt-5"
               type="submit"
-              onClick={() => disableRound(3)}
+              onClick={() => disableRound(2)}
             >
               Round 3 Disable
             </button>

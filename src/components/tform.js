@@ -39,33 +39,27 @@ export default function Tform({ id }) {
           values.memory = test[i].memory;
           // values.explanation = test[i].explanation;
           values.question = qid;
-          values.number = 0
+          values.number = 0;
 
           console.log("Values: ", values);
 
           axios
-          .post(
-            `${process.env.NEXT_PUBLIC_APIURL}testcases/create`,
-            values,
-            {
+            .post(`${process.env.NEXT_PUBLIC_APIURL}testcases/create`, values, {
               headers: {
                 Authorization: `Bearer ${access_token}`,
               },
-            }
-          )
-          .then((response) => {
-            console.log("Testcase " ,i ," Posted");
-            refresh();
-            // router.push("/choice");
-          });
+            })
+            .then((response) => {
+              console.log("Testcase ", i, " Posted");
+              refresh();
+              // router.push("/choice");
+            });
         }
         alert("Testcase Posted!");
-
       } catch {
         (error) => {
           console.log("Testcase Post failed: " + error.response.data);
           alert("Testcase posted failed!");
-
         };
       }
     },
