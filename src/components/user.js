@@ -122,14 +122,16 @@ const Users = () => {
           <table className="min-w-full table-auto border-2 border-separate border-white bg-gray-950">
             <thead>
               <tr className="text-white border-b-2 border-t">
-                <th className="px-2 py-4 text-center border-r-2">Name</th>
-                <th className="px-2 py-4 text-center border-r-2">Email</th>
-                <th className="px-2 py-4 text-center border-r-2">RegNo</th>
-                <th className="px-2 py-4 text-center border-r-2">Score</th>
-                <th className="px-2 py-4 text-center border-r-2">UserRole</th>
-                <th className=" px-2 py-4 text-center border-r-2">Details</th>
-                <th className=" px-2 py-4 text-center border-r-2">Ban</th>
-                <th className=" px-2 py-4 text-center border-r-2">Unban</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">Name</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">Email</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">RegNo</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">Score</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">UserRole</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">Submitted</th>
+                <th className="px-2 py-4 text-center border-r-2 border-b-2">Ban Status</th>
+                <th className=" px-2 py-4 text-center border-r-2 border-b-2">Details</th>
+                <th className=" px-2 py-4 text-center border-r-2 border-b-2">Ban</th>
+                <th className=" px-2 py-4 text-center border-r-2 border-b-2">Unban</th>
               </tr>
             </thead>
             <tbody className="text-white">
@@ -139,7 +141,10 @@ const Users = () => {
                   <td className="px-4 py-2 border-r-2">{item.email}</td>
                   <td className="px-4 py-2 border-r-2">{item.regNo}</td>
                   <td className="px-4 py-2 border-r-2">{item.score}</td>
-                  <td className="px-4 py-2 border-r-2">{item.userRole}</td>
+                  <td className="px-4 py-2 border-r-2 capitalize">{item.userRole}</td>
+                  <td className="px-4 py-2 border-r-2 capitalize">{JSON.stringify(!item.isRoundActive)}</td>
+                  <td className="px-4 py-2 border-r-2 capitalize">{JSON.stringify(!item.isActive)}</td>
+
                   <td className="px-4 py-2 border-r-2">
                     <button
                       className="rounded-full border hover:bg-white hover:text-black text-white font-bold py-2 px-4 "
