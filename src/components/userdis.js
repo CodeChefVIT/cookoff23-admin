@@ -67,7 +67,7 @@ const Userdis = ({ id }) => {
   }, []);
   return (
     <>
-    {/* Bhai scroll nai hora 😭 */}
+    {/* Bhai scroll nai hora 😭 update: ho gya bhai!!*/}
     <div className="overflow-auto">
       <div className="overflow">
         <div className="max-h-screen overflow">
