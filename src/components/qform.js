@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useFormik } from "formik";
-// import axios from "axios";
+import axios from "axios";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
 import { useState } from "react";
@@ -11,7 +11,9 @@ import Router from "next/router";
 
 export default function Qform() {
   const [temp_input,settemp_input] = useState("");
-  console.log("tempInput: ",temp_input);
+  const [temp_output,settemp_output] = useState("");
+  let inpArray = temp_input.split('\n');
+  let outArray = temp_output.split('\n');
 
   const formik = useFormik({
     initialValues: {
@@ -36,7 +38,11 @@ export default function Qform() {
         values.sampleTestOutput = outFor;
         values.constraints = constFor;
         values.explanation = explanFor;
+        values.inputFormat = inpArray;
+        values.outputFormat = outArray
         console.log(values);
+        // console.log("TEMP INPUT: ",inpArray);
+        // console.log("TEMP OUTPUT: ", outArray)
 
         axios
           .post(`${process.env.NEXT_PUBLIC_APIURL}ques/createQues`, values, {
@@ -76,6 +82,20 @@ export default function Qform() {
     const deleteVal = [...inpFor];
     deleteVal.splice(i, 1);
     setInpFor(deleteVal);
+  };
+
+  //Input Format Array
+  const handleiformatChange = (onChangeValue) => {
+    formik.handleChange;
+    const temp = onChangeValue.target.value;
+    settemp_input(temp);
+  };
+
+  //Output Format Array
+  const handleoformatChange = (onChangeValue) => {
+    formik.handleChange;
+    const temp = onChangeValue.target.value;
+    settemp_output(temp);
   };
 
   //Output Format
@@ -289,8 +309,7 @@ export default function Qform() {
                   className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
                   id="inputFormat[0]"
                   type="text"
-                  onChange={formik.handleChange}
-                  value={()=> settemp_input(formik.values.inputFormat[0])}
+                  onChange={(e) => handleiformatChange(e)}
                   rows={7}
                 />
                 {formik.errors.inputFormat ? (
@@ -309,8 +328,7 @@ export default function Qform() {
                   className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
                   id="outputFormat[0]"
                   type="text"
-                  onChange={formik.handleChange}
-                  value={formik.values.outputFormat}
+                  onChange={(e) => handleoformatChange(e)}
                   rows={7}
                 />
                 {formik.errors.outputFormat ? (

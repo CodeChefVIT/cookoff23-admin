@@ -13,7 +13,6 @@ const Userdis = ({ id }) => {
   const [data, setData] = useState([]);
   const [codeData, setCodeData] = useState([]);
   const [round, setRound] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
@@ -23,17 +22,17 @@ const Userdis = ({ id }) => {
     let roundValue = e.target.value;
     setRound(roundValue);
 
-    switch (round) {
+    switch (roundValue) {
+      case "0":
+        promoteUser(r, roundValue);
+        break;
+
       case "1":
-        promoteUser(r, round);
+        promoteUser(r, roundValue);
         break;
 
       case "2":
-        promoteUser(r, round);
-        break;
-
-      case "3":
-        promoteUser(r, round);
+        promoteUser(r, roundValue);
         break;
     }
   };
@@ -76,7 +75,6 @@ const Userdis = ({ id }) => {
 
       const temp = response.data;
       setData(temp);
-      setLoading(temp);
       console.log(temp);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -101,7 +99,6 @@ const Userdis = ({ id }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-    setLoading(true);
   };
   useEffect(() => {
     fetchData();
@@ -109,14 +106,13 @@ const Userdis = ({ id }) => {
   }, []);
   return (
     <>
-      <div>
         {/* Bhai scroll nai hora 😭 update: ho gya bhai!!*/}
         <div className="overflow-auto">
           <div className="overflow">
             <div className="max-h-screen overflow">
               <div className="flex justify-center items-center">
                 <button
-                  className="absolute top-18 left-8 uppercase border-r text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                  className="absolute top-18 left-8 uppercase border text-white py-2 px-4 rounded-full hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                   type="button"
                   onClick={() => handleSubmit("userdash")}
                 >
@@ -228,10 +224,7 @@ const Userdis = ({ id }) => {
             </div>
           )}
         </div>
-        <div className="text-white flex justify-center content-center items-center h-[80vh] text-[22px]">
-          {loading ? loading : "Loading..."}
-        </div>
-      </div>
+
     </>
   );
 };

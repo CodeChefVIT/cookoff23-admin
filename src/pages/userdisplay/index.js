@@ -12,15 +12,14 @@ const App = () => {
     console.log("Passed");
     return (
       <>
-      <div className="h-[100vh] overflow-auto">
-        <UserDis id={id} />
-      </div>
+        <div className="h-[100vh] overflow-auto">
+          <UserDis id={id} />
+        </div>
       </>
     );
   } else {
     console.log("Not String");
   }
-  
 };
 
 export default App;
