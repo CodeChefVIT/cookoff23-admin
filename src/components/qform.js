@@ -364,10 +364,11 @@ export default function Qform() {
                         Input {i + 1}{" "}
                       </div>
                       <div className="mb-[40px]">
-                        <input
+                        <textarea
                           className="w-[280px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
                           type="text"
                           onChange={(e) => handleInpOnChange(e, i)}
+                          rows={5}
                         />
                         {formik.errors.inputFormat ? (
                           <div className="text-[#D9D9D999] mt-1 ml-2">
@@ -408,10 +409,11 @@ export default function Qform() {
                         Output {i + 1}{" "}
                       </div>
                       <div className="mb-[40px]">
-                        <input
+                        <textarea
                           className="w-[280px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
                           type="text"
                           onChange={(e) => handleOutOnChange(e, i)}
+                          rows={5}
                         />
                         {formik.errors.outputFormat ? (
                           <div className="text-[#D9D9D999] mt-1 ml-2">

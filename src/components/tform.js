@@ -13,11 +13,11 @@ export default function Tform({ id }) {
 
   const formik = useFormik({
     initialValues: {
-      expectedOutput: "",
+      expectedOutput: "", // textarea
       input: "",
       group: 0,
       hidden: true,
-      time: 0,
+      time: 0.0,
       memory: 0,
       // explanation: "",
       question: "",
@@ -39,27 +39,33 @@ export default function Tform({ id }) {
           values.memory = test[i].memory;
           // values.explanation = test[i].explanation;
           values.question = qid;
-          values.number = 0;
+          values.number = 0
 
           console.log("Values: ", values);
 
           axios
-            .post(`${process.env.NEXT_PUBLIC_APIURL}testcases/create`, values, {
+          .post(
+            `${process.env.NEXT_PUBLIC_APIURL}testcases/create`,
+            values,
+            {
               headers: {
                 Authorization: `Bearer ${access_token}`,
               },
-            })
-            .then((response) => {
-              console.log("Testcase ", i, " Posted");
-              refresh();
-              // router.push("/choice");
-            });
+            }
+          )
+          .then((response) => {
+            console.log("Testcase " ,i ," Posted");
+            refresh();
+            // router.push("/choice");
+          });
         }
         alert("Testcase Posted!");
+
       } catch {
         (error) => {
           console.log("Testcase Post failed: " + error.response.data);
           alert("Testcase posted failed!");
+
         };
       }
     },
@@ -71,7 +77,7 @@ export default function Tform({ id }) {
       input: "",
       group: 0,
       hidden: true,
-      time: 0,
+      time: 0.0,
       memory: 0,
       // explanation: "",
       question: "",
@@ -86,7 +92,7 @@ export default function Tform({ id }) {
         input: "",
         group: 0,
         hidden: true,
-        time: 0,
+        time: 0.0,
         memory: 0,
         // explanation: "",
         question: "",
@@ -149,10 +155,11 @@ export default function Tform({ id }) {
                         <div className="text-[#FFFFFF] text-[22px]">
                           Expected Output
                         </div>
-                        <input
+                        <textarea
                           className="w-[97%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold break-words overflow-auto resize-none"
                           name="expectedOutput"
                           onChange={(e) => handleChange(e, i)}
+                          row={4}
                         />
                       </div>
 

@@ -3,18 +3,18 @@
 import React from "react";
 import Router from "next/router";
 import Navbar from "../navbar";
+import logo from "@/assets/logo.svg"
+import Image from "next/image";
 
 export default function Choice() {
   const handleSubmit = (value) => {
     Router.push(`/${value}`);
   };
-
   return (
     <>
       <div className="flex flex-col items-center justify-evenly content-center mt-[20vh]">
-        
         <div className="flex ">
-          <Navbar />
+        <Image src={logo} className="h-[100px] pb-5 mb-5" alt="logo" />
         </div>
         <div className="flex flex-row justify-evenly w-[100vw] mt-20">
           <div>
@@ -46,6 +46,8 @@ export default function Choice() {
               Rounds
             </button>
           </div>
+
+          
         </div>
       </div>
     </>
