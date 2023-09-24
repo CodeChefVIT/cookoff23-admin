@@ -6,17 +6,16 @@ import RefreshToken from "@/utils/RefreshToken";
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import codeEditor from "./codeEditor";
+import Widget from "./widget";
 
 const Userdis = ({ id }) => {
-
   const reg = id;
   // console.log("Reg: ", typeof(id));
   const [data, setData] = useState([]);
   const [databr, setDatabr] = useState([]);
   const [codeData, setCodeData] = useState([]);
   const [round, setRound] = useState("");
-  const [promote, setPromote] = useState("")
-
+  const [promote, setPromote] = useState("");
 
   const removeAllItems = () => {
     setCodeData([]);
@@ -28,8 +27,8 @@ const Userdis = ({ id }) => {
 
   const handleRoundChange = async (e, r) => {
     let roundValue = e.target.value;
-    if(!confirm("Are you sure?")){
-      return
+    if (!confirm("Are you sure?")) {
+      return;
     }
     setPromote(roundValue);
 
@@ -54,28 +53,25 @@ const Userdis = ({ id }) => {
 
     switch (roundValue) {
       case "0":
-        try{
+        try {
           removeAllItems();
           viewRound(r, roundValue);
           break;
-        }catch(error){
-        }
+        } catch (error) {}
 
       case "1":
-        try{
+        try {
           removeAllItems();
           viewRound(r, roundValue);
           break;
-        }catch(error){
-        }
+        } catch (error) {}
 
       case "2":
-        try{
+        try {
           removeAllItems();
           viewRound(r, roundValue);
           break;
-        }catch(error){
-        }
+        } catch (error) {}
     }
   };
 
@@ -94,7 +90,7 @@ const Userdis = ({ id }) => {
       );
 
       const temp = response.data;
-      console.log("Round Code: ",temp);
+      console.log("Round Code: ", temp);
       setCodeData(temp);
       // fetchCodeData();
     } catch (error) {
@@ -107,7 +103,6 @@ const Userdis = ({ id }) => {
   // })
 
   const promoteUser = async (x, y) => {
-    
     console.log(`Promoted ${x} to ${y}`);
     await RefreshToken();
     try {
@@ -123,7 +118,7 @@ const Userdis = ({ id }) => {
       );
       const temp = response.data;
       console.log(temp);
-      alert("Round changed successfully!")
+      alert("Round changed successfully!");
     } catch (error) {
       console.error("Error Promoting User:", error);
     }
@@ -145,7 +140,7 @@ const Userdis = ({ id }) => {
 
       const temp = response.data;
       setData(temp);
-      setPromote(temp.roundQualified)
+      setPromote(temp.roundQualified);
       console.log(temp);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -205,11 +200,12 @@ const Userdis = ({ id }) => {
                 <p className="">View Sub:</p>
                 <select
                   className="w-[10vw] py-[15px] px-[20px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
-                  // defaultValue="1"
+                  defaultValue="-"
                   type="text"
                   name="promote"
                   onChange={(e) => handleViewChange(e, data.regNo)}
                 >
+                  <option value="-">-</option>
                   <option value="0">Round 0</option>
                   <option value="1">Round 1</option>
                   <option value="2">Round 2</option>
@@ -256,7 +252,9 @@ const Userdis = ({ id }) => {
                 </div>
                 <div className="flex flex-row gap-2">
                   <p className="text-[#a89b85]">Score: </p>
-                  <p className="capitalize">{Math.floor((data.score) * (1/3) * 10)}</p>
+                  <p className="capitalize">
+                    {Math.floor(data.score * (1 / 3) * 10)}
+                  </p>
                 </div>
               </div>
             </div>
@@ -264,50 +262,36 @@ const Userdis = ({ id }) => {
         </div>
 
         {codeData.length > 0 ? (
-          codeData.map((items, i) => (
-            <div
-              className="flex flex-col text-white items-center justify-center content-center mt-[2vw] text-[20px]"
-              key={i}
-            >
-              <div className="p-3 bg-[#1b1a1a] w-[97vw] flex items-center justify-center content-center">
-                {`Code ${i + 1}. ${items.name} (${items.question_id}) --
+          codeData.map((items, i) => {
+            return (
+              <div
+                className="flex flex-col text-white items-center justify-center content-center mt-[2vw] text-[20px]"
+                key={i}
+              >
+                <div className="p-3 bg-[#1b1a1a] w-[97vw] flex items-center justify-center content-center">
+                  {`Code ${i + 1}. ${items.name} (${items.question_id}) --
                 ${items.points} points`}
-              </div>
-              <div className="flex flex-row items-top justify-center content-center gap-[1vw]">
-                <div className="w-[48vw] bg-[#161616]">
-                  {codeEditor(items.code, items.language_id, `max`)}
                 </div>
-                <div className="w-[48vw] bg-[#161616]">
-                  <div className="px-[25px] m-[1vh]">
-                    <div className="flex flex-row gap-2">
-                      <p className="text-[#a89b85]">Compilation Error: </p>
-                      <p className="capitalize">
-                        {JSON.stringify(items.compilation_error)}
-                      </p>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                      <p className="text-[#a89b85]">Runtime Error: </p>
-                      <p className="capitalize">
-                        {JSON.stringify(items.runtime_error)}
-                      </p>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                      <p className="text-[#a89b85]">Time Limit Exceeded: </p>
-                      <p className="capitalize">
-                        {JSON.stringify(items.time_limit_exceeded)}
-                      </p>
-                    </div>
-                    <div className="flex flex-row gap-2">
-                      <p className="text-[#a89b85]">Output Did Not Match: </p>
-                      <p className="capitalize">
-                        {JSON.stringify(items.output_did_not_match)}
-                      </p>
-                    </div>
+                <div className="flex flex-row items-top justify-center content-center gap-[1vw]">
+                  <div className="w-[48vw] bg-[#161616]">
+                    {codeEditor(items.code, items.language_id, `max`)}
+                  </div>
+                  <div className="flex flex-col">
+                    
+                    {items.compilation_error && (
+                      <Widget error={items.compilation_error} i={1} />
+                    )}
+                    {items.runtime_error && (
+                      <Widget error={items.runtime_error} i={2} />
+                    )}
+                    {items.time_limit_exceeded && (
+                      <Widget error={items.time_limit_exceeded} i={3} />
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div className="text-white flex items-center content-center justify-center h-[40vh]">
             No Codes Available
