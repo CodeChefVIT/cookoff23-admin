@@ -67,7 +67,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => enableRound(0)}
             >
-              Round 1 Enable
+              Round 0 Enable
             </button>
 
             <button
@@ -75,7 +75,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => disableRound(0)}
             >
-              Round 1 Disable
+              Round 0 Disable
             </button>
           </div>
 
@@ -85,7 +85,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => enableRound(1)}
             >
-              Round 2 Enable
+              Round 1 Enable
             </button>
 
             <button
@@ -93,7 +93,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => disableRound(1)}
             >
-              Round 2 Disable
+              Round 1 Disable
             </button>
           </div>
 
@@ -103,7 +103,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => enableRound(2)}
             >
-              Round 3 Enable
+              Round 2 Enable
             </button>
 
             <button
@@ -111,7 +111,7 @@ export default function Rounds() {
               type="submit"
               onClick={() => disableRound(2)}
             >
-              Round 3 Disable
+              Round 2 Disable
             </button>
           </div>
         </div>
