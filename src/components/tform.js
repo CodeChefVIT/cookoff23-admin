@@ -102,10 +102,11 @@ export default function Tform({ id }) {
 
   const handleChange = (e, i) => {
     formik.handleChange;
+    console.log(e.target.value);
     let { name, value } = e.target;
     const list = [...test];
     if (name === "group" || name === "memory" || name === "time") {
-      value = parseInt(value);
+      value = parseFloat(value);
     } else if (name === "hidden") {
       value = value === "true";
     }
