@@ -148,7 +148,7 @@ const Ques = () => {
                 <th className="px-4 py-2 w-1/5 text-center border-r-2">
                   Input Format
                 </th>
-                <th className="px-4 py-2 w-1/5 text-center border-r-2">
+                <th className="px-4 py-2 my-2 w-1/5 text-center border-r-2">
                   Output Format
                 </th>
                 <th className="px-4 py-2 text-center border-r-2">
