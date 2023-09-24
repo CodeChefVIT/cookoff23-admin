@@ -6,7 +6,7 @@ import RefreshToken from "@/utils/RefreshToken";
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import codeEditor from "./codeEditor";
-import Groupinfo from "./groupinfo";
+import Widget from "./widget";
 
 const Userdis = ({ id }) => {
   const reg = id;
@@ -205,7 +205,6 @@ const Userdis = ({ id }) => {
                   name="promote"
                   onChange={(e) => handleViewChange(e, data.regNo)}
                 >
-
                   <option value="-">-</option>
                   <option value="0">Round 0</option>
                   <option value="1">Round 1</option>
@@ -277,127 +276,17 @@ const Userdis = ({ id }) => {
                   <div className="w-[48vw] bg-[#161616]">
                     {codeEditor(items.code, items.language_id, `max`)}
                   </div>
-
                   <div className="flex flex-col">
-                    <div id="repeat">
-                      <p className="flex content-center justify-center mt-3 bg-[#161616]">
-                        Group 1
-                      </p>
-                      <div className="w-[48vw] bg-[#171717]">
-                        <div className="px-[25px] ">
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Compilation Error:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.compilation_error[0])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">Runtime Error: </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.compilation_error[1])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Time Limit Exceeded:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.compilation_error[2])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Output Did Not Match:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.compilation_error[3])}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="repeat">
-                      <p className="flex content-center justify-center mt-3 bg-[#161616]">
-                        Group 2
-                      </p>
-                      <div className="w-[48vw] bg-[#171717]">
-                        <div className="px-[25px] ">
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Compilation Error:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.runtime_error[0])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">Runtime Error: </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.runtime_error[1])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Time Limit Exceeded:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.runtime_error[2])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Output Did Not Match:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.runtime_error[3])}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="repeat">
-                      <p className="flex content-center justify-center mt-3 bg-[#161616]">
-                        Group 3
-                      </p>
-                      <div className="w-[48vw] bg-[#171717]">
-                        <div className="px-[25px] ">
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Compilation Error:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.time_limit_exceeded[0])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">Runtime Error: </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.time_limit_exceeded[1])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Time Limit Exceeded:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.time_limit_exceeded[2])}
-                            </p>
-                          </div>
-                          <div className="flex flex-row gap-2">
-                            <p className="text-[#a89b85]">
-                              Output Did Not Match:{" "}
-                            </p>
-                            <p className="capitalize">
-                              {JSON.stringify(items.time_limit_exceeded[3])}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
+                    {items.compilation_error && (
+                      <Widget error={items.compilation_error} i={1} />
+                    )}
+                    {items.runtime_error && (
+                      <Widget error={items.runtime_error} i={2} />
+                    )}
+                    {items.time_limit_exceeded && (
+                      <Widget error={items.time_limit_exceeded} i={3} />
+                    )}
                   </div>
                 </div>
               </div>
