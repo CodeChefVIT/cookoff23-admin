@@ -239,6 +239,7 @@ export default function Tform({ id }) {
                                 className="w-[47%px] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
                                 name="time"
                                 type="number"
+                                step="0.01"
                                 onChange={(e) => handleChange(e, i)}
                               />
                               {formik.errors.time ? (
@@ -259,6 +260,7 @@ export default function Tform({ id }) {
                                 className="w-[99%] py-[12px] px-[12px] m-[10px] text-[#D9D9D999] bg-[#2C2C2C] text-[22px] font-semibold"
                                 name="memory"
                                 type="number"
+                                defaultValue={2048}
                                 onChange={(e) => handleChange(e, i)}
                               />
                               {formik.errors.memory ? (
