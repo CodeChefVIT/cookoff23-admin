@@ -43,7 +43,7 @@ function Login() {
       console.log(values);
       try {
         axios
-          .post("https://api-cookoff-prod.codechefvit.com/auth/login", values)
+          .post(`${process.env.NEXT_PUBLIC_APIURL}auth/login`, values)
           .then((response) => {
             useTokenStore.setState({
               access_token: response.data.accessToken,

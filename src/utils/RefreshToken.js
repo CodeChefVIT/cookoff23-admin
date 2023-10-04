@@ -6,7 +6,7 @@ export default function RefreshToken() {
     const refresh_token = localStorage.getItem("refresh_token");
   
     return axios
-      .post("https://api-cookoff-prod.codechefvit.com/auth/refresh", {
+      .post(`${process.env.NEXT_PUBLIC_APIURL}auth/refresh`, {
         refreshToken: refresh_token,
       })
       .then((response) => {
