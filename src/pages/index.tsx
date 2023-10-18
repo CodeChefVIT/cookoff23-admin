@@ -1,5 +1,5 @@
 import Head from "next/head";
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./Login";
 
 export default function Home() {
   return (
